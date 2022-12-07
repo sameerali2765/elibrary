@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<main>
+    
+    <div class="services-area2">
+    <div class="container">
+    <div class="row">
+    <div class="col-xl-12">
+    <div class="row">
+    <div class="col-xl-12">
+    <div class="single-services d-flex align-items-center mb-0">
+        
+    <div class="features-img">
+    <img src="/{{book_detail.image}}" style="width: 282px; height: 427px;" alt="">
+    </div>
+    <div class="features-caption">
+    <h3>{{book_detail.name}}</h3>
+    <p>By {{book_detail.author}}</p>
+    
+    <p>Category : {{book_detail.category}}</p>
+    <p>Publisher : {{book_detail.publisher}}</p>
+    <p>{{book_detail.publish_year}}</p>
+    <div class="review">
+    <div class="rating">
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star-half-alt"></i>
+    </div>
+    <p>(120 Review)</p>
+    </div>
+    <a href="/{{book_detail.pdf }}" class="white-btn mr-10">Read Now</a>
+    {% if book_detail.download == '1' %}
+    <a href="{{ book_detail.pdf.url }}" download class="white-btn mr-10">Download</a>
+    {% endif %}
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+  
+    
+    <section class="our-client section-padding best-selling">
+    <div class="container">
+    <div class="row">
+    <div class="offset-xl-1 col-xl-10">
+    <div class="nav-button f-left">
+    <nav>
+    <div class="nav nav-tabs " id="nav-tab" role="tablist">
+    <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">Description</a>
+    {% comment %} <a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false">Author</a> {% endcomment %}
+    </div>
+    </nav>
+    
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="container">
+    
+    <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+    
+    <div class="row">
+    <div class="offset-xl-1 col-lg-9">
+    <p>
+        {{book_detail.description}}
+    </p>
+    </div>
+    </div>
+    </div>
+    {% comment %} <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
+    
+    <div class="row">
+    <div class="offset-xl-1 col-lg-9">
+        <p>{{book_detail.author.description}}</p>
+    </div>
+    </div>
+    </div> {% endcomment %}
+   
+    </div>
+    </div>
+    </section>
+    </main>
+
+{% endblock  %}

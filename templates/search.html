@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="slider-area">
+                    <div class="slider-height2 slider-bg3 d-flex align-items-center justify-content-center">
+                        <div class="hero-caption hero-caption2">
+                            <h2>Search Book </h2> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="listing-area pt-50 pb-50">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-xl-8 col-lg-8 col-md-6">
+                    {% if searched %}<h4 ><span class="text-muted">Search result for :</span> {{searched}}</h4><hr>
+                        {% else %}
+                        <h4>Hey! You Forget To Search For A {{searched}}</h4><hr>
+                        {% endif %}
+                    </div>
+                    <div class="best-selling p-0">
+                        <div class="row" id="filteredBooks">
+                            {% for book in books %}
+                            {% if book.status == '1' %}
+                            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="properties pb-30">
+                                    <div class="properties-card">
+                                        <div class="properties-img">
+                                            <a href="/book_detail/{{book.id}}"><img src="/{{book.image}}" style="width: 364px; height: 298px;" alt=""></a>
+                                        </div>
+                                        <div class="properties-caption properties-caption2">
+                                            <h3><a href="/book_detail/{{book.id}}">{{book.name}}</a></h3>
+                                            <p>{{book.author}}</p>
+                                            <div class="properties-footer d-flex justify-content-between align-items-center">
+                                                <div class="review">
+                                                    <div class="rating">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star-half-alt"></i>
+                                                    </div>
+                                                     <p>(<span>120</span> Review)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif%}
+                            {% endfor %}
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="more-btn text-center mt-15">
+                                            <a href="#" class="border-btn border-btn2 more-btn2">Browse More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</main>
+{% endblock %}
