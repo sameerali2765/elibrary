@@ -1,7 +1,27 @@
 {% extends 'layout.html' %}
 {% block content %}
 {% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'flipbook/css/jquery.fancybox.min.css' %}" />
+<script type="text/javascript" src="{% static 'flipbook/js/jquery.fancybox.min.js' %}"></script>
+<script>
+    // Adjust iframe height according to the contents
+    parent.jQuery.fancybox.getInstance().update();
 
+    // Close current fancyBox instance
+    parent.jQuery.fancybox.getInstance().close();
+</script>
+<style>
+    .fancybox-slide--iframe .fancybox-content {
+        width: 95%;
+        height: 95%;
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0;
+    }
+</style>
 <main>
     
     <div class="services-area2">
@@ -13,7 +33,7 @@
     <div class="single-services d-flex align-items-center mb-0">
         
     <div class="features-img">
-    <img src="/{{book_detail.image}}" style="width: 282px; height: 427px;" alt="">
+    <img src="/{{book_detail.image}}" style=" height: 427px;" alt="">
     </div>
     <div class="features-caption">
     <h3>{{book_detail.name}}</h3>
@@ -32,7 +52,7 @@
     </div>
     <p>(120 Review)</p>
     </div>
-    <a href="/{{book_detail.pdf }}" class="white-btn mr-10">Read Now</a>
+    <a class="white-btn mr-10" data-fancybox data-type="iframe" data-src="book_detail.html?file={{ book_detail.pdf.url }}#magazineMode=true" href="javascript:;">Read Now</a>
     {% if book_detail.download == '1' %}
     <a href="{{ book_detail.pdf.url }}" download class="white-btn mr-10">Download</a>
     {% endif %}
@@ -83,10 +103,10 @@
     </div>
     </div>
     </div> {% endcomment %}
-   
+    <div class="flip-book-container" src="{{ book_detsil.pdf.url }}"></div>
     </div>
     </div>
     </section>
     </main>
-
+    
 {% endblock  %}

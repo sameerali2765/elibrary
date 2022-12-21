@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import include , path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.views.static import serve
 from . import views
 
 
@@ -32,18 +34,21 @@ urlpatterns = [
     path('account/Registers', views.handleRegister,name='Registers'),
 
     #profile
-    path('account/profile', views.profile,name='Profile'),
+    path('account/profile', views.profile,name='profile'),
     path('account/profile/update', views.Profile_Update,name='Profile_Update'),
 
     # book app
     path('books/',views.Books ,name='books'),
     path('book_detail/<str:id>', views.Book_Detail ,name="book_detail"),
-    path('filter-data/',views.filter_data,name="filter_data"),
+    path('filter-data/',views.filter_data , name="filter_data"),
     path('search/',views.Search, name="search"),
     # path('pdf/<str:id>',views.Viewer, name="pdf"),
+    # path('book-category/', views.bookcategory ,name="book_category"),
   
 
    
    path('accounts/',include('django.contrib.auth.urls')),
-    
+   
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

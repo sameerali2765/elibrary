@@ -59,13 +59,15 @@
 <div class="single-input-fields login-check">
 <input type="checkbox" id="fruit1" name="keep-log">
 <label for="fruit1">Keep me logged in</label>
-<a href="#" class="f-right">Forgot Password?</a>
+<a href="{% url 'password_reset' %}" class="f-right">Forgot Password?</a>
 </div>
 </div>
 
 <div class="login-footer">
 <p>Don’t have an account? <a href="{% url 'Register' %}">Register</a> here</p>
+<a href="{% url 'Home' %}">Back to Home</a>
 <button class="submit-btn3">Login</button>
+
 </div>
 </form>
 </div>

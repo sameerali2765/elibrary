@@ -136,13 +136,18 @@ STATICFILES_DIRS=[
   os.path.join(BASE_DIR, 'static')
 ]
 
+# DATA_DIR = os.path.dirname(os.path.dirname(__file__))
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
+# TEMP_ROOT = os.path.join(DATA_DIR, 'media/tmp')
+
 LOGIN_REDIRECT_URL = 'Home'
 LOGOUT_REDIRECT_URL = 'Home'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587        
-EMAIL_HOST_USER = 'Enter  Your Email Id'
-EMAIL_HOST_PASSWORD = 'Enter Your password'
+EMAIL_HOST_USER = 'sameerali2765@gmail.com'
+EMAIL_HOST_PASSWORD = 'yrxsznukkqsqjcky'
 
-DEFAULT_FROM_EMAIL = 'testmail@gmail.com'
+DEFAULT_FROM_EMAIL = 'sameerali2765@gmail.com'

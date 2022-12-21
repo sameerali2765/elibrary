@@ -10,28 +10,60 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from .forms import ContactForm
+from django.core.mail import send_mail,EmailMultiAlternatives
 
 def Home(request):
 
     sliders= slider.objects.all()
     Books= Add_book.objects.all()
+    categories = category.objects.all()[:4]
     context ={
         'sliders':sliders,
         'books': Books,
+        'bookcategory': categories,
     }
     return render(request, "index.html",context)
+
 
 def About(request):
     return render(request, "about.html")
 
 
 def Contact(request):
-    return render(request, "contact.html")
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data['message']
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            
+            html = render_to_string('email/contact.html',{
+                'message': message,
+                'name': name,
+                'email': email,
+                'subject' : subject,
+            })
+
+        subject=' Contact Form'
+        from_email ='sameerali2765@gamil.com'
+        msg="Welcome to Elibrary"
+        to ='mubee332@gmail.com'
+        send_mail(subject,from_email,msg,[to],html_message=html)
+        return redirect('Contact')
+    else:
+        form = ContactForm()
+    return render(request, "contact.html", {'form': form})
+
+
 
 
 def Register(request):
     
     return render(request, "account/register.html")
+
+
 
 def handleRegister(request):
     if request.method =='POST':
@@ -49,7 +81,7 @@ def handleRegister(request):
         messages.error(request,'email id are already exists')
         return redirect('Register')
 
-
+        
     user =User(
         first_name= firstname,
         last_name= lastname,
@@ -83,6 +115,7 @@ def profile(request):
   return render(request, "profile/profile.html")
 
 
+
 @login_required
 def Profile_Update(request):
     if request.method == 'POST':
@@ -95,22 +128,16 @@ def Profile_Update(request):
        user_id = request.user.id
    
 
-    user =User(
-        id =   user_id,
-        first_name= first_name,
-        last_name= last_name,
-        username= username,
-        email= email,
-        )
-    
-   
+    user = User.objects.get(id=user_id)
+    user.first_name = first_name
+    user.last_name = last_name
+    user. username = username
+    user.email = email
+
     if password != None and password != "":
         user.set_password(password)
-        user.save()
-           
-    
-
-    return redirect('Profile')
+    user.save()
+    return redirect('profile')
 
 @login_required
 def Books(request):
@@ -118,13 +145,14 @@ def Books(request):
     categories = category.objects.all()
     author = Author.objects.all()
     publisher = Publisher.objects.all()
-
+   
     context ={
         
         'books': Books,
         'category' : categories,
         'author' : author,
         'publisher' : publisher,
+        
     }
     return render(request, 'books/templates/books.html',context)
 
@@ -139,14 +167,21 @@ def Book_Detail(request,id):
     return render(request, 'books/templates/book_detail.html',context)
 
 
-
-
 def filter_data(request):
     categories=request.GET.getlist('category[]')
-    Books=Add_book.objects.all().order_by('-id').distinct()
-    if len(categories)> 0:
-        Books = Books.filter(category__id__in=categories).distinct()
-    t=render_to_string('ajax/book_list.html',{'data': Books})
+    publishers=request.GET.getlist('publisher[]')
+    authors=request.GET.getlist('author[]')
+    
+    book=Add_book.objects.all().order_by('-id').distinct()
+
+    if len(categories) > 0:
+        books = book.filter(category__id__in=categories).distinct()
+    if len(publishers) > 0:
+        books = book.filter(publisher__id__in=publishers).distinct()
+    if len(authors) > 0:
+        books = book.filter(author__id__in=authors).distinct()
+    
+    t=render_to_string('ajax/books.html',{'books': books})
 
     return JsonResponse({'data': t})
 
@@ -161,3 +196,13 @@ def Search(request):
         # book = Add_book.objects.filter(author__id__name=searched)
         
     return render(request, 'search.html',{'searched':searched,'books': book})
+
+# @login_required
+# def Viewer(request,id):
+#     Book_Detail = Add_book.objects.filter( id = id).first()
+#     context = {
+#         'document' : Book_Detail,
+#     }
+    
+#     return render(request, 'templates/viewer.html',context)
+

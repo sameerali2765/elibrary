@@ -2,7 +2,11 @@
 {% block content %}
 {% load static %}
 {% block script %}
-
+<script
+src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+crossorigin="anonymous"
+></script>
 <script>
     $(document).ready(function(){
         $(".filter-checkbox").on('click', function(){
@@ -15,13 +19,10 @@
                      return el.value;
                 });
             });
-            $.ajax({
+            $.ajax({ 
                 url:'{% url 'filter_data' %}',
                 data:filter_object,
-                dataType:'json',
-                beforeSend:function(){
-                    $("#filteredBooks").html('loading...');	
-                },			
+                dataType:'json',		
                 success:function(res){				
                     $("#filteredBooks").html(res.data);	
                 
@@ -54,88 +55,84 @@
 
                     <div class="category-listing mb-50">
                     
-                    <div class="single-listing">
+                         <div class="single-listing">
                     
-                    <div class="select-Categories pb-30">
-                    <div class="small-tittle mb-20">
-                    <h4>Filter by Genres</h4>
-                    </div>
-                    {% for i in category %}
-                    <div class="single-widget-category">
-                    <input type="checkbox" data-filter="category" id="{{i.id}}" value="{{i.id}}" class="filter-checkbox">
-                    <label for="{{i.id}}">{{i.name}} <span>({{i.data_set.all.count}})</span></label>
-                    </div>
-                    {% endfor %}
-
+                            <div class="select-Categories pb-30">
+                                <div class="small-tittle mb-20">
+                                    <h4>Filter by Category</h4>
+                                </div>
+                                {% for i in category %}
+                                {% if i.status == '1' %}
+                                <div class="single-widget-category">
+                                    <label class="container" for="{{i.id}}">{{i.name}}
+                                     <input type="checkbox" data-filter="category" id="{{i.id}}" value="{{i.id}}" class="filter-checkbox">
+                                     <span class="checkmark"></span><span >({{i.add_book_set.all.count}})</span></label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                     
-                  
-
+                    <div class="category-listing mb-50">
                     
+                        <div class="single-listing">
                    
+                           <div class="select-Categories pb-30">
+                               <div class="small-tittle mb-20">
+                                   <h4>Filter by Publisher</h4>
+                               </div>
+                               {% for i in publisher %}
+                               {% if i.status == '1' %}
+                               <div class="single-widget-category">
+                                   <label class="container" for="publisher-{{i.id}}">{{i.name}}
+                                    <input type="checkbox" data-filter="publisher" id="publisher-{{i.id}}" value="{{i.id}}" class="filter-checkbox">
+                                    <span class="checkmark"></span><span >({{i.add_book_set.all.count}})</span></label>
+                               </div>
+                               {% endif %}
+                               {% endfor %}
+                           </div>
+                       </div>
+                   </div>
+                   
+                   <div class="category-listing mb-50">
                     
-                    <div class="select-Categories pt-100 pb-60">
-                    <div class="small-tittle mb-20">
-                    <h4>Filter by Publisher</h4>
-                    </div>
-                    {% comment %} {% for pub in publisher %}
-                    {% if pub.status == '1' %}
-                    <label class="container"for="{{pub.id}}">{{pub.name}}
-                        <input type="checkbox"data-filter="publisher" id="{{pub.id}}" value="{{pub.id}}" class="filter-checkbox1">
-                        <span class="checkmark"></span>
-                    </label>
-                    {% endif %}
-                    {% endfor %} {% endcomment %}
-                    {% for i in publisher %}
-                    <div class="single-widget-category">
-                    <input type="checkbox" data-filter="category" id="{{i.id}}" value="{{i.id}}" class="filter-checkbox">
-                    <label  for="{{i.id}}">{{i.name}} <span>({{i.data_set.all.count}})</span></label>
-                    </div>
-                    {% endfor %}
-
-
-                    </div>
-                    
-                    
-                    <div class="select-Categories">
-                    <div class="small-tittle mb-20">
-                    <h4>Filter by Author Name</h4>
-                    </div>
-                    {% comment %} {% for aut in author %}
-                    {% if aut.status == '1' %}
-                    <label class="container"for="{{aut.id}}">{{aut.name}}
-                        <input type="checkbox"data-filter="publisher" id="{{aut.id}}" value="{{aut.id}}" class="filter-checkbox2">
-                        <span class="checkmark"></span>
-                    </label>
-                    {% endif %}
-                    {% endfor %} {% endcomment %}
-
-                    {% for i in author %}
-                    <div class="single-widget-category">
-                    <input type="checkbox" data-filter="category" id="{{i.id}}" value="{{i.id}}" class="filter-checkbox">
-                    <label for="{{i.id}}">{{i.name}} <span>({{i.product_set.all.count}})</span></label>
-                    </div>
-                    {% endfor %}
-
-                    </div>
-                    </div>
-                    </div>
-                    </div>
+                    <div class="single-listing">
+               
+                       <div class="select-Categories pb-30">
+                           <div class="small-tittle mb-20">
+                               <h4>Filter by Publisher</h4>
+                           </div>
+                           {% for i in author %}
+                           {% if i.status == '1' %}
+                           <div class="single-widget-category">
+                               <label class="container" for="author-{{i.id}}">{{i.name}}
+                                <input type="checkbox" data-filter="author" id="author-{{i.id}}" value="{{i.id}}" class="filter-checkbox">
+                                <span class="checkmark"></span><span >({{i.add_book_set.all.count}})</span></label>
+                           </div>
+                           {% endif %}
+                           {% endfor %}
+                       </div>
+                   </div>
+               </div>
+                </div>
+                
+                 
                 <div class="col-xl-8 col-lg-8 col-md-6">
                     
                     <div class="best-selling p-0">
                         <div class="row" id="filteredBooks">
-                            {% for book in books %}
-                            {% if book.status == '1' %}
-                            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-12 col-sm-6">
+                            {% for books in books %}
+                            {% if books.status == '1' %}
+                            <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-12 col-sm-6 book_box">
                                 <div class="properties pb-30">
                                     <div class="properties-card">
                                         <div class="properties-img">
-                                            <a href="/book_detail/{{book.id}}"><img src="/{{book.image}}" style="width: 200px; height: 298px;" alt=""></a>
+                                            <a href="/book_detail/{{books.id}}"><img src="/{{books.image}}" style="height: 298px;" alt=""></a>
                                         </div>
                                         <div class="properties-caption properties-caption2">
-                                            <h3><a href="/book_detail/{{book.id}}">{{book.name}}</a></h3>
-                                            <p>{{book.author}}</p>
+                                            <h3><a href="/book_detail/{{books.id}}">{{books.name}}</a></h3>
+                                            <p>{{books.author}}</p>
                                             <div class="properties-footer d-flex justify-content-between align-items-center">
                                                 <div class="review">
                                                     <div class="rating">
@@ -157,7 +154,7 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="more-btn text-center mt-15">
-                                            <a href="#" class="border-btn border-btn2 more-btn2">Browse More</a>
+                                            <button id="BrowseMore" class="border-btn border-btn2 more-btn2">Browse More <i class="fa fa-sync"></i></button>
                                     </div>
                                 </div>
                             </div>

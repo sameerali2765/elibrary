@@ -1,20 +1,42 @@
-﻿{% load static %}
-<!doctype html>
-<html class="no-js" lang="zxx">
+﻿{% comment %} {% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'flipbook/css/jquery.fancybox.min.css' %}" />
+<script type="text/javascript" src="{% static 'flipbook/js/jquery.fancybox.min.js' %}"></script>
+<script>
+    // Adjust iframe height according to the contents
+    parent.jQuery.fancybox.getInstance().update();
 
-<!-- Mirrored from preview.colorlib.com/theme/abcbook/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 29 Nov 2022 11:37:33 GMT -->
-<head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>elibrary</title>
+    // Close current fancyBox instance
+    parent.jQuery.fancybox.getInstance().close();
+</script>
 <style>
-  .container{padding : 30px;}
+    .fancybox-slide--iframe .fancybox-content {
+        width: 95%;
+        height: 95%;
+        max-width: 100%;
+        max-height: 100%;
+        margin: 0;
+    }
 </style>
-</head>
-<body>
-  <div class="container">
-    <embed src="{{pdf.id}}{{pdf.pdf }}" type="application/pdf" width="100%" height="600px"/>
+<div style="width:100%">
+    <!-- List of uploaded documents -->
+    {% if document %} 
 
-  </div>
-</body>
-</html>
+    <div style="float:left; width:200px; height:320px; margin:10px;" class="thumbnail">
+        <a data-fancybox data-type="iframe" data-src="viewer.html?file={{ document.pdf.url }}#magazineMode=true" href="javascript:;">
+            <img src="{{ document.image.url }}" alt="{{ document.name }}" style="width:100%">
+            <div class="caption">
+                <p>{{ document.name }}</p>
+            </div>
+        </a>
+    </div>
+    <div class="flip-book-container" src="{{ document.pdf.url }}"></div>
+     {% else %}
+    <p>No documents.</p>
+    {% endif %}
+
+</div>
+{% endblock content %} {% endcomment %}
