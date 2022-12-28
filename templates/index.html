@@ -8,6 +8,7 @@
         <div class="col-xl-12">
         <div class="slider-active dot-style">
             {% for i in sliders %}
+            {% if i.status == '1' %}
         <div class="single-slider slider-height slider-bg3 d-flex align-items-center" >
          <div class="container">
             
@@ -17,12 +18,13 @@
         <span data-animation="fadeInUp" data-delay=".2s">{{i.Author}}</span>
         <h1 data-animation="fadeInUp" data-delay=".4s">{{i.Name}}<br></h1>
         <h4 data-animation="fadeInUp" data-delay=".4s" style="color:#FFF;">{{i.Category}}<br></h4>
-        <a href="#" class="btn hero-btn" data-animation="bounceIn" data-delay=".8s">Read Now</a>
+        <a href="#" class="border-btn border-btn2 more-btn2" data-animation="bounceIn" data-delay=".8s">Read Now</a>
         </div>
         </div>
         </div>
         </div>
         </div>
+        {% endif %}
         {% endfor %}    
         </div>
         </div>
@@ -51,7 +53,7 @@
 <a href="/book_detail/{{items.id}}"><img src="/{{items.image}}" style=" height: 298px;"  alt=""></a>
 </div>
 <div class="properties-caption">
-<h3><a href="/book_detail/{{items.id}}">{{items.name}}</a></h3>
+<h3><a href="/book_detail/{{items.id}}">{{items.name|truncatewords:1.5}}</a></h3>
 <p>{{items.author}}</p>
 <div class="properties-footer d-flex justify-content-between align-items-center">
 <div class="review">
@@ -88,29 +90,33 @@
 
 <div class="col-xl-12">
 <div class="section-tittle d-flex justify-content-between align-items-center mb-40">
-<h2 class="mb-0">Featured This Week</h2>
-<a href="#" class="browse-btn">View All</a>
+<h2 class="mb-0">Best Video</h2>
+<a href="{% url 'books' %}" class="browse-btn">View All</a>
 </div>
 </div>
 </div>
 <div class="row">
 <div class="col-xl-12">
 <div class="services-active">
-    {% for items in books %}
-    {% if items.status == '1' %}
+    {% for items in videos %}
+    {% comment %} {% if items.status == '1' %} {% endcomment %}
 <div class="single-services d-flex align-items-center">
-<div class="features-img">
-<img src="{{items.image}}" style=" height: 427px;" alt="">
-</div>
-<div class="features-caption">
+    <div class="container features-caption">
+        <h3 class="text-center mt-2 mb-2  "style="margin-right:50px">{{items.Caption}}</h3>
+        <video class="embed-responsive embed-responsive-16by9" controls="controls" style="border-enter code here`style: none;width: 92%; height: 300px; ">
+            {% comment %} <iframe  src="{{items.Video.url}}" type="video/mp4" frameborder="0" border="0" cellspacing="0" style="border-enter code here`style: none;width: 100%; height: 120px;"></iframe> {% endcomment %}
+            <source src="{{items.Video.url}}"type="video/mp4" >
+        </video>
+    </div>
+
+{% comment %} <div class="features-caption">
 <img src="{% static 'assets/img/icon/logo.html' %}" alt="">
-<h3>{{items.name|truncatewords:10}}</h3>
-<p>By {{items.author}}</p>
-<p> {{items.publish_year}}</p>
+<h3>{{items.name|truncatewords:10}}</h3> {% endcomment %}
+
 {% comment %} <div class="price">
 <span>$50.00</span>
 </div> {% endcomment %}
-<div class="review">
+{% comment %} <div class="review">
 <div class="rating">
 <i class="fas fa-star"></i>
 <i class="fas fa-star"></i>
@@ -121,9 +127,9 @@
 <p>(120 Review)</p>
 </div>
 <a href="/book_detail/{{items.id}}" class="border-btn">View Details</a>
+</div> {% endcomment %}
 </div>
-</div>
-{% endif %}
+{% comment %} {% endif %} {% endcomment %}
 {% endfor %}
 </div>
 </div>
@@ -132,7 +138,7 @@
 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-9">
 
 <div class="google-add">
-<img src="{% static 'assets/img/gallery/ad.jpg' %}" alt="" class="w-100">
+<img src="{% static 'assets/img/gallery/internet.jpg' %}" style="height:475px;" alt="" class="w-100">
 </div>
 </div>
 </div>
@@ -170,7 +176,7 @@
         <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
             
             <div class="row" id="bookcategory">
-                        {% for items in books %}
+                        {% for items in booklimit %}
                         {% if items.status == '1' %}  
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                     <div class="properties pb-20">
@@ -179,7 +185,7 @@
                                 <a href="/book_detail/{{items.id}}"><img src="/{{items.image}} "style="height: 298px;"  alt=""></a>
                             </div>
                             <div class="properties-caption properties-caption2">
-                                <h3><a href="/book_detail/{{items.id}}">{{items.name|truncatewords:2}}</a></h3>
+                                <h3><a href="/book_detail/{{items.id}}">{{items.name|truncatewords:1}}</a></h3>
                                 <p>{{items.author}}</p>
                                 <div class="properties-footer d-flex justify-content-between align-items-center">
                                     <div class="review">

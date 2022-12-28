@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'elibrary.urls'
@@ -148,6 +148,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587        
 EMAIL_HOST_USER = 'sameerali2765@gmail.com'
-EMAIL_HOST_PASSWORD = 'yrxsznukkqsqjcky'
+EMAIL_HOST_PASSWORD = 'namleyoeyigrwrag'
 
 DEFAULT_FROM_EMAIL = 'sameerali2765@gmail.com'

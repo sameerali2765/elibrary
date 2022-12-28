@@ -1,8 +1,15 @@
 {% extends 'layout.html' %}
 {% block content %}
 {% load static %}
+{% block script %}
+{% comment %} <script
+src="https://code.jquery.com/jquery-3.6.0.min.js"
+integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+crossorigin="anonymous"
+></script> {% endcomment %}
+ 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> {% endcomment %}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'flipbook/css/jquery.fancybox.min.css' %}" />
 <script type="text/javascript" src="{% static 'flipbook/js/jquery.fancybox.min.js' %}"></script>
@@ -13,6 +20,12 @@
     // Close current fancyBox instance
     parent.jQuery.fancybox.getInstance().close();
 </script>
+
+
+
+{% endblock %} 
+
+
 <style>
     .fancybox-slide--iframe .fancybox-content {
         width: 95%;
@@ -52,7 +65,7 @@
     </div>
     <p>(120 Review)</p>
     </div>
-    <a class="white-btn mr-10" data-fancybox data-type="iframe" data-src="book_detail.html?file={{ book_detail.pdf.url }}#magazineMode=true" href="javascript:;">Read Now</a>
+    <a class="white-btn mr-10" data-fancybox data-type="iframe" data-src="/viewer.html?file={{ book_detail.pdf.url }}#magazineMode=true" href="javascript:;">Read Now</a>
     {% if book_detail.download == '1' %}
     <a href="{{ book_detail.pdf.url }}" download class="white-btn mr-10">Download</a>
     {% endif %}
@@ -74,7 +87,7 @@
     <nav>
     <div class="nav nav-tabs " id="nav-tab" role="tablist">
     <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">Description</a>
-    {% comment %} <a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false">Author</a> {% endcomment %}
+    <a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false">Author</a>
     </div>
     </nav>
     
@@ -95,18 +108,21 @@
     </div>
     </div>
     </div>
-    {% comment %} <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
+    <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
     
     <div class="row">
     <div class="offset-xl-1 col-lg-9">
         <p>{{book_detail.author.description}}</p>
     </div>
     </div>
-    </div> {% endcomment %}
+    </div>
     <div class="flip-book-container" src="{{ book_detsil.pdf.url }}"></div>
     </div>
     </div>
     </section>
+   
+        
+      
     </main>
     
 {% endblock  %}

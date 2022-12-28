@@ -9,8 +9,9 @@
 <title>elibrary</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/icon/favicon.png' %}">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/icon/join.png' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
 <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
@@ -25,12 +26,12 @@
 <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-{% comment %} 
+
 <script
 src="https://code.jquery.com/jquery-3.6.0.min.js"
 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 crossorigin="anonymous"
-></script> {% endcomment %}
+></script>
 <script nonce="b276c1b3-26d3-427b-ba4e-be8611cec21d">(function(w,d){!function(cM,cN,cO,cP){cM.zarazData=cM.zarazData||{};cM.zarazData.executed=[];cM.zaraz={deferred:[],listeners:[]};cM.zaraz.q=[];cM.zaraz._f=function(cQ){return function(){var cR=Array.prototype.slice.call(arguments);cM.zaraz.q.push({m:cQ,a:cR})}};for(const cS of["track","set","debug"])cM.zaraz[cS]=cM.zaraz._f(cS);cM.zaraz.init=()=>{var cT=cN.getElementsByTagName(cP)[0],cU=cN.createElement(cP),cV=cN.getElementsByTagName("title")[0];cV&&(cM.zarazData.t=cN.getElementsByTagName("title")[0].text);cM.zarazData.x=Math.random();cM.zarazData.w=cM.screen.width;cM.zarazData.h=cM.screen.height;cM.zarazData.j=cM.innerHeight;cM.zarazData.e=cM.innerWidth;cM.zarazData.l=cM.location.href;cM.zarazData.r=cN.referrer;cM.zarazData.k=cM.screen.colorDepth;cM.zarazData.n=cN.characterSet;cM.zarazData.o=(new Date).getTimezoneOffset();if(cM.dataLayer)for(const cZ of Object.entries(Object.entries(dataLayer).reduce(((c_,da)=>({...c_[1],...da[1]})))))zaraz.set(cZ[0],cZ[1],{scope:"page"});cM.zarazData.q=[];for(;cM.zaraz.q.length;){const db=cM.zaraz.q.shift();cM.zarazData.q.push(db)}cU.defer=!0;for(const dc of[localStorage,sessionStorage])Object.keys(dc||{}).filter((de=>de.startsWith("_zaraz_"))).forEach((dd=>{try{cM.zarazData["z_"+dd.slice(7)]=JSON.parse(dc.getItem(dd))}catch{cM.zarazData["z_"+dd.slice(7)]=dc.getItem(dd)}}));cU.referrerPolicy="origin";cU.src="../../cdn-cgi/zaraz/sd0d9.js?z="+btoa(encodeURIComponent(JSON.stringify(cM.zarazData)));cT.parentNode.insertBefore(cU,cT)};["complete","interactive"].includes(cN.readyState)?zaraz.init():cM.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,0,"script");})(window,document);</script></head>
 <body>
 <header>
@@ -44,7 +45,7 @@ crossorigin="anonymous"
 <div class="header-info-left d-flex align-items-center">
 
 <div class="logo">
-<a href="index-2.html"><img src="{% static 'assets/img/logo/logonew3.png' %}" Style="width: 175px;"alt=""></a>
+<a href="index-2.html"><img src="{% static 'assets/img/logo/logonew4.png' %}" Style="width: 200px;"alt=""></a>
 </div>
 
 <form action="{% url 'search' %}" method="POST" class="form-box">
@@ -97,7 +98,7 @@ background-color: transparent;"><i class="ti-search"></i></button>
 <div class="col-xl-12">
 
 <div class="logo2">
-<a href="{% url 'Home'  %}"><img src="{% static 'assets/img/logo/logonew3.png' %}" Style="width: 175px;"alt=""></a>
+<a href="{% url 'Home'  %}"><img src="{% static 'assets/img/logo/logonew4.png' %}" Style="width: 175px;"alt=""></a>
 </div>
 
 <div class="main-menu text-center d-none d-lg-block">

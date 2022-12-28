@@ -15,7 +15,7 @@ width: 40%;"/>
                 <a href="/book_detail/{{books.id}}"><img src="/{{books.image}}" style="height: 298px;" alt=""></a>
             </div>
             <div class="properties-caption properties-caption2">
-                <h3><a href="/book_detail/{{books.id}}">{{books.name}}</a></h3>
+                <h3><a href="/book_detail/{{books.id}}">{{books.name|truncatewords:1}}</a></h3>
                 <p>{{books.author}}</p>
                 <div class="properties-footer d-flex justify-content-between align-items-center">
                     <div class="review">

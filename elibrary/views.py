@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect,render
 from app.models import slider
 from books.models import Add_book
+from videos.models import Video
 from categories.models import category
 from app.models import Author,Publisher
 from django.contrib.auth.models import User
@@ -15,13 +16,17 @@ from django.core.mail import send_mail,EmailMultiAlternatives
 
 def Home(request):
 
-    sliders= slider.objects.all()
-    Books= Add_book.objects.all()
-    categories = category.objects.all()[:4]
+    sliders= slider.objects.all().order_by('-id')
+    videos= Video.objects.all().order_by('-id')
+    Books= Add_book.objects.all().order_by('-id')
+    Bookslimit= Add_book.objects.all().order_by('-id')[:6]
+    categories = category.objects.all().order_by('-id')[:4]
     context ={
         'sliders':sliders,
         'books': Books,
         'bookcategory': categories,
+        'booklimit' :Bookslimit,
+        'videos' : videos,
     }
     return render(request, "index.html",context)
 
@@ -141,10 +146,10 @@ def Profile_Update(request):
 
 @login_required
 def Books(request):
-    Books= Add_book.objects.all()
-    categories = category.objects.all()
-    author = Author.objects.all()
-    publisher = Publisher.objects.all()
+    Books= Add_book.objects.all().order_by('-id')
+    categories = category.objects.all().order_by('-id')
+    author = Author.objects.all().order_by('-id')
+    publisher = Publisher.objects.all().order_by('-id')
    
     context ={
         
@@ -168,6 +173,7 @@ def Book_Detail(request,id):
 
 
 def filter_data(request):
+    Books = Add_book.objects.all().order_by('-id')
     categories=request.GET.getlist('category[]')
     publishers=request.GET.getlist('publisher[]')
     authors=request.GET.getlist('author[]')
@@ -175,13 +181,13 @@ def filter_data(request):
     book=Add_book.objects.all().order_by('-id').distinct()
 
     if len(categories) > 0:
-        books = book.filter(category__id__in=categories).distinct()
+        Books = book.filter(category__id__in=categories).distinct()
     if len(publishers) > 0:
-        books = book.filter(publisher__id__in=publishers).distinct()
+        Books = book.filter(publisher__id__in=publishers).distinct()
     if len(authors) > 0:
-        books = book.filter(author__id__in=authors).distinct()
+        Books = book.filter(author__id__in=authors).distinct()
     
-    t=render_to_string('ajax/books.html',{'books': books})
+    t=render_to_string('ajax/books.html',{'books': Books})
 
     return JsonResponse({'data': t})
 
@@ -197,12 +203,5 @@ def Search(request):
         
     return render(request, 'search.html',{'searched':searched,'books': book})
 
-# @login_required
-# def Viewer(request,id):
-#     Book_Detail = Add_book.objects.filter( id = id).first()
-#     context = {
-#         'document' : Book_Detail,
-#     }
-    
-#     return render(request, 'templates/viewer.html',context)
+ 
 

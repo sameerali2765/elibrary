@@ -14,7 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include , path
+from django.urls import include ,path, re_path 
+# from django.conf.urls import path
+from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -42,9 +44,9 @@ urlpatterns = [
     path('book_detail/<str:id>', views.Book_Detail ,name="book_detail"),
     path('filter-data/',views.filter_data , name="filter_data"),
     path('search/',views.Search, name="search"),
-    # path('pdf/<str:id>',views.Viewer, name="pdf"),
-    # path('book-category/', views.bookcategory ,name="book_category"),
+    # path('viewer/',views.Viewer,name=""),
   
+    re_path(r'^viewer.html$', TemplateView.as_view(template_name="viewer.html", content_type="text/html"), name="viewer"),
 
    
    path('accounts/',include('django.contrib.auth.urls')),
@@ -52,3 +54,8 @@ urlpatterns = [
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# urlpatterns += (
+#     url(r'^viewer.html$', TemplateView.as_view(template_name="viewer.html", content_type="text/html"), name="viewer"),
+# )
+    
+ 

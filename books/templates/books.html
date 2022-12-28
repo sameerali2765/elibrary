@@ -7,7 +7,7 @@ src="https://code.jquery.com/jquery-3.6.0.min.js"
 integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 crossorigin="anonymous"
 ></script>
-<script>
+ <script>
     $(document).ready(function(){
         $(".filter-checkbox").on('click', function(){
             var filter_object={};
@@ -18,6 +18,7 @@ crossorigin="anonymous"
                 filter_object[filter_key]=Array.from(document.querySelectorAll('input[data-filter='+filter_key+']:checked')).map(function(el){
                      return el.value;
                 });
+                
             });
             $.ajax({ 
                 url:'{% url 'filter_data' %}',
@@ -30,7 +31,17 @@ crossorigin="anonymous"
             }); 
         });
     });
-    </script>
+    </script> 
+
+    {% comment %} <script>
+
+        $(document).ready(function(){
+            $(".filter-checkbox").on('click', function(){
+                console.log(this)
+            });
+        });
+
+    </script> {% endcomment %}
  
 
 {% endblock %} 
@@ -131,7 +142,7 @@ crossorigin="anonymous"
                                             <a href="/book_detail/{{books.id}}"><img src="/{{books.image}}" style="height: 298px;" alt=""></a>
                                         </div>
                                         <div class="properties-caption properties-caption2">
-                                            <h3><a href="/book_detail/{{books.id}}">{{books.name}}</a></h3>
+                                            <h3><a href="/book_detail/{{books.id}}">{{books.name|truncatewords:2}}</a></h3>
                                             <p>{{books.author}}</p>
                                             <div class="properties-footer d-flex justify-content-between align-items-center">
                                                 <div class="review">
@@ -154,7 +165,7 @@ crossorigin="anonymous"
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="more-btn text-center mt-15">
-                                            <button id="BrowseMore" class="border-btn border-btn2 more-btn2">Browse More <i class="fa fa-sync"></i></button>
+                                            <button id="BrowseMore" class="border-btn border-btn2 more-btn2">Browse More </button>
                                     </div>
                                 </div>
                             </div>
